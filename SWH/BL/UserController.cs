@@ -1,10 +1,12 @@
 ﻿using SWH.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SWH.BL
 {
@@ -56,7 +58,7 @@ namespace SWH.BL
         {
             try
             {
-                //Throws InvalidOperationException when there is no item that meet criteria
+                //Throws InvalidOperationException when there is no item that meets criteria
                 Users.First(u => u.UserName == userName && u.Password == password);
 
                 //User could be found, Login successful
@@ -67,6 +69,18 @@ namespace SWH.BL
                 //User could not be found, Login unsuccessful
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Saves the Users to a file
+        /// </summary>
+        /// <param name="filename">File to be written into</param>
+        public void SerializeUsersToXML(string filename)
+        {
+            FileStream outputFile = File.OpenWrite(filename);
+            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<User>));
+            ser.Serialize(outputFile, Users);
+            outputFile.Close();
         }
     }
 }

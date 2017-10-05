@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <ID>1</ID>
+    <UserName>thelittlesurvivor</UserName>
+    <Password>W1zard</Password>
+    <LastName>Potter</LastName>
+    <FirstName>Harry</FirstName>
+    <DateOfBirth>1992-05-17T00:00:00</DateOfBirth>
+    <PlaceOfBirth>Godric's Hollow</PlaceOfBirth>
+    <HomeTown>Little Whinging</HomeTown>
+  </User>
+  <User>
+    <ID>2</ID>
+    <UserName>uknowwho</UserName>
+    <Password>V0ldemort</Password>
+    <LastName>Denem</LastName>
+    <FirstName>Tom</FirstName>
+    <DateOfBirth>1978-12-24T00:00:00</DateOfBirth>
+    <PlaceOfBirth>Some Place</PlaceOfBirth>
+    <HomeTown>Other Place</HomeTown>
+  </User>
+</ArrayOfUser>

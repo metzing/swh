@@ -6,20 +6,35 @@
         xmlns:local="clr-namespace:SWH.View"
         mc:Ignorable="d"
         Title="TableWindow"
-        SizeToContent="WidthAndHeight">
-
-    <ListView Margin="10" ItemsSource="{Binding Users}">
-        <ListView.View>
-            <GridView>
-                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
-                <GridViewColumn Header="Felhasználónév" Width="Auto" DisplayMemberBinding="{Binding UserName}" />
-                <GridViewColumn Header="Jelszó" Width="Auto" DisplayMemberBinding="{Binding Password}" />
-                <GridViewColumn Header="Vezetéknév" Width="Auto" DisplayMemberBinding="{Binding LastName}" />
-                <GridViewColumn Header="Keresztnév" Width="Auto" DisplayMemberBinding="{Binding FirstName}" />
-                <GridViewColumn Header="Születési idő" Width="Auto" DisplayMemberBinding="{Binding DateOfBirth}" />
-                <GridViewColumn Header="Születési hely" Width="Auto" DisplayMemberBinding="{Binding PlaceOfBirth}" />
-                <GridViewColumn Header="Lakhely" Width="Auto" DisplayMemberBinding="{Binding HomeTown}" />
-            </GridView>
-        </ListView.View>
-    </ListView>
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="10">
+            <Button Content="Edit selected"
+                    Click="OnEditButton"
+                    Margin="5,0,5,0"/>
+            <Button Content="Save as XML"
+                    Click="OnSaveXML"
+                    Margin="5,0,5,0"/>
+            <TextBox Name="SearchTextBox"
+                     TextChanged="FilterConditionChanged"
+                     MinWidth="150"
+                     Margin ="5,0,5,0"/>
+        </StackPanel>
+        <ListView Name="UsersListView" Margin="10" ItemsSource="{Binding Users}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="UserName" Width="Auto" DisplayMemberBinding="{Binding UserName}" />
+                    <GridViewColumn Header="Password" Width="Auto" DisplayMemberBinding="{Binding Password}" />
+                    <GridViewColumn Header="LastName" Width="Auto" DisplayMemberBinding="{Binding LastName}" />
+                    <GridViewColumn Header="FirstName" Width="Auto" DisplayMemberBinding="{Binding FirstName}" />
+                    <GridViewColumn Header="DateOfBirth" Width="Auto" DisplayMemberBinding="{Binding DateOfBirth}" />
+                    <GridViewColumn Header="PlaceOfBirth" Width="Auto" DisplayMemberBinding="{Binding PlaceOfBirth}" />
+                    <GridViewColumn Header="HomeTown" Width="Auto" DisplayMemberBinding="{Binding HomeTown}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
 </Window>
