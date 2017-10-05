@@ -27,16 +27,24 @@ namespace SWH
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Called when the login button is pushed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLoginButton(object sender, RoutedEventArgs e)
         {
+            //Try to log in with the creditentials
             if (UserController.Instance.TryLogin(UserNameTextBox.Text, PasswordTextBox.Password))
             {
+                //Success, open new TableWindow
                 ResponseLabel.Content = "Successful login";
                 ResponseLabel.Foreground = new SolidColorBrush(Colors.Green);
                 new TableWindow().ShowDialog();
             }
             else
             {
+                //Error, notify user
                 ResponseLabel.Content = "Unsuccessful login";
                 ResponseLabel.Foreground = new SolidColorBrush(Colors.Red);
             }

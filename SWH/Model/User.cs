@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SWH.Model
 {
+    /// <summary>
+    /// Represents a User of the system
+    /// </summary>
     public class User
     {
         public int ID { get; set; }
@@ -18,8 +21,16 @@ namespace SWH.Model
         public string HomeTown { get; set; }
     }
 
+    /// <summary>
+    /// Factory class for creating User objects
+    /// </summary>
     public static class UserFactory
     {
+        /// <summary>
+        /// Creates a User object from a string containing the fields separated by ';'
+        /// </summary>
+        /// <param name="line">String of fields</param>
+        /// <returns>New User object with properties set</returns>
         public static User FromCSVLine(string line)
         {
             string[] fields = line.Split(';');

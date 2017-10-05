@@ -87,5 +87,24 @@ namespace SWH.View
                 return false;
             }
         }
+
+        /// <summary>
+        /// Called when the Edit button is pressed. Opens a new DetailsWindow with the selected User object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnEditButton(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DetailsWindow details = new DetailsWindow();
+                details.User = UsersListView.Items[UsersListView.SelectedIndex] as User;
+                details.ShowDialog();
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                //Index can be out of range when nothing is selected   
+            }
+        }
     }
 }
