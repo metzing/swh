@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SWH.Model
 {
-    class User
+    public class User
     {
         public int ID { get; set; }
         public string UserName { get; set; }
@@ -16,5 +16,24 @@ namespace SWH.Model
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
         public string HomeTown { get; set; }
+    }
+
+    public static class UserFactory
+    {
+        public static User FromCSVLine(string line)
+        {
+            string[] fields = line.Split(';');
+            return new User
+            {
+                ID = int.Parse(fields[0]),
+                UserName = fields[1],
+                Password = fields[2],
+                LastName = fields[3],
+                FirstName = fields[4],
+                DateOfBirth = DateTime.Parse(fields[5]),
+                PlaceOfBirth = fields[6],
+                HomeTown = fields[7]
+            };
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWH.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace SWH
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnLoginButton(object sender, RoutedEventArgs e)
+        {
+            if (UserController.Instance.TryLogin(UserNameTextBox.Text, PasswordTextBox.Password))
+            {
+
+            }
         }
     }
 }

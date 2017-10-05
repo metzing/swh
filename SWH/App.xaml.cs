@@ -13,5 +13,6 @@ namespace SWH
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
