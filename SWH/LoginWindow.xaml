@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWH"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="240" Width="200">
-
-    <StackPanel Orientation="Vertical">
+        Title="LoginWindow"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+    
+    <WrapPanel Orientation="Vertical">
         <Label>Username</Label>
         <TextBox Name="UserNameTextBox"
                      Text="thelittlesurvivor"
@@ -23,5 +25,6 @@
         <Button Content="Login"
                 Click="OnLoginButton"
                 Margin="10"/>
-    </StackPanel>
+        <Label Name="ResponseLabel"/>
+    </WrapPanel>
 </Window>

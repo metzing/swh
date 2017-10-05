@@ -1,4 +1,5 @@
 ﻿using SWH.BL;
+using SWH.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,14 @@ namespace SWH
         {
             if (UserController.Instance.TryLogin(UserNameTextBox.Text, PasswordTextBox.Password))
             {
-
+                ResponseLabel.Content = "Successful login";
+                ResponseLabel.Foreground = new SolidColorBrush(Colors.Green);
+                new TableWindow().ShowDialog();
+            }
+            else
+            {
+                ResponseLabel.Content = "Unsuccessful login";
+                ResponseLabel.Foreground = new SolidColorBrush(Colors.Red);
             }
         }
     }

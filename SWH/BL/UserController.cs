@@ -40,7 +40,7 @@ namespace SWH.BL
         {
             Users = new ObservableCollection<User>();
 
-            foreach (var line in File.ReadAllLines("database"))
+            foreach (var line in File.ReadAllLines("database.txt"))
             {
                 Users.Add(UserFactory.FromCSVLine(line));
             }

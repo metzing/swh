@@ -1,0 +1,25 @@
+﻿<Window x:Class="SWH.View.TableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWH.View"
+        mc:Ignorable="d"
+        Title="TableWindow"
+        SizeToContent="WidthAndHeight">
+
+    <ListView Margin="10" ItemsSource="{Binding Users}">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding ID}" />
+                <GridViewColumn Header="Felhasználónév" Width="Auto" DisplayMemberBinding="{Binding UserName}" />
+                <GridViewColumn Header="Jelszó" Width="Auto" DisplayMemberBinding="{Binding Password}" />
+                <GridViewColumn Header="Vezetéknév" Width="Auto" DisplayMemberBinding="{Binding LastName}" />
+                <GridViewColumn Header="Keresztnév" Width="Auto" DisplayMemberBinding="{Binding FirstName}" />
+                <GridViewColumn Header="Születési idő" Width="Auto" DisplayMemberBinding="{Binding DateOfBirth}" />
+                <GridViewColumn Header="Születési hely" Width="Auto" DisplayMemberBinding="{Binding PlaceOfBirth}" />
+                <GridViewColumn Header="Lakhely" Width="Auto" DisplayMemberBinding="{Binding HomeTown}" />
+            </GridView>
+        </ListView.View>
+    </ListView>
+</Window>
