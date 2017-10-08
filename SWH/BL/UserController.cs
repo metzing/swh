@@ -10,37 +10,19 @@ using System.Xml.Serialization;
 
 namespace SWH.BL
 {
-    class UserController
+    class UserController : IUserProvider, ILoginAgent
     {
-        private static UserController instance;
-        /// <summary>
-        /// Singleton instance
-        /// </summary>
-        public static UserController Instance
-        {
-            get
-            {
-                //If instance is null (first access), create singleton instance and return it
-                return instance ?? (instance = new UserController());
-            }
-        }
-
         /// <summary>
         /// Users in the database
         /// </summary>
-        public ObservableCollection<User> Users { get; private set; }
-
-        private UserController()
-        {
-            LoadUsers();
-        }
+        public List<User> Users { get; private set; }
 
         /// <summary>
         /// Reads users into memory from database file
         /// </summary>
         public void LoadUsers()
         {
-            Users = new ObservableCollection<User>();
+            Users = new List<User>();
 
             foreach (var line in File.ReadAllLines("database.txt"))
             {
@@ -75,12 +57,58 @@ namespace SWH.BL
         /// Saves the Users to a file
         /// </summary>
         /// <param name="filename">File to be written into</param>
-        public void SerializeUsersToXML(string filename)
+        public void SaveToXML(string filename)
         {
             FileStream outputFile = File.OpenWrite(filename);
-            XmlSerializer ser = new XmlSerializer(typeof(ObservableCollection<User>));
+            XmlSerializer ser = new XmlSerializer(typeof(List<User>));
             ser.Serialize(outputFile, Users);
             outputFile.Close();
         }
+
+        /// <summary>
+        /// Get all users in the database
+        /// </summary>
+        /// <returns>List of all users</returns>
+        public List<User> GetUsers()
+        {
+            return Users;
+        }
+
+        /// <summary>
+        /// Get the group of users that match the predicate in parameter
+        /// </summary>
+        /// <param name="predicate">Predicate</param>
+        /// <returns>List of users that match the given predicate</returns>
+        public List<User> GetUsers(Predicate<User> predicate)
+        {
+            List<User> result = new List<User>();
+            foreach (var user in Users)
+            {
+                if (predicate(user))
+                {
+                    result.Add(user);
+                }
+            }
+            return result;
+        }
+    }
+
+    /// <summary>
+    /// Interface containing the neccessary methods for using the User database
+    /// </summary>
+    public interface IUserProvider
+    {
+        void LoadUsers();
+        List<User> GetUsers();
+        List<User> GetUsers(Predicate<User> predicate);
+        void SaveToXML(string filename);
+    }
+
+    /// <summary>
+    /// Interface with the method for logging in to the program.
+    /// </summary>
+    public interface ILoginAgent
+    {
+        bool TryLogin(string userName, string password);
     }
 }

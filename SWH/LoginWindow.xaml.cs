@@ -35,7 +35,7 @@ namespace SWH
         private void OnLoginButton(object sender, RoutedEventArgs e)
         {
             //Try to log in with the creditentials
-            if (UserController.Instance.TryLogin(UserNameTextBox.Text, PasswordTextBox.Password))
+            if ((Application.Current as App).LoginAgent.TryLogin(UserNameTextBox.Text, PasswordTextBox.Password))
             {
                 //Success, open new TableWindow
                 ResponseLabel.Content = "Successful login";

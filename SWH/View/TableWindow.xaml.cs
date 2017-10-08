@@ -26,7 +26,7 @@ namespace SWH.View
         {
             InitializeComponent();
 
-            DataContext = UserController.Instance;
+            UsersListView.ItemsSource = App.Current.UserProvider.GetUsers();
         }
 
         private void OnSaveXML(object sender, RoutedEventArgs e)
@@ -34,10 +34,11 @@ namespace SWH.View
             //Create dialog to specify file location
             SaveFileDialog ofd = new SaveFileDialog();
             ofd.Filter = "XML files (*.xml)|*.xml";
-            //Showdialog returns true if user pressed 'OK', false elsewise
-            if (ofd.ShowDialog().Value) {
+            //Showdialog returns Nullable<bool>, that is true if user pressed 'OK', false elsewise
+            if (ofd.ShowDialog().Value)
+            {
                 //Request UserController to save to file
-                UserController.Instance.SerializeUsersToXML(ofd.FileName);
+                App.Current.UserProvider.SaveToXML(ofd.FileName);
             }
         }
 
@@ -46,13 +47,13 @@ namespace SWH.View
             //If the new key is longer than 3 characters..
             if (SearchTextBox.Text.Length >= 3)
             {
-                //..set Filter predicate to method with proper signature
-                UsersListView.Items.Filter = ApplySearch;
+                //..set source to filtered items
+                UsersListView.ItemsSource = App.Current.UserProvider.GetUsers(ApplySearch);
             }
             else
             {
                 //.. if not, then dont filter the items
-                UsersListView.Items.Filter = null;
+                UsersListView.ItemsSource = App.Current.UserProvider.GetUsers();
             }
         }
 
@@ -61,31 +62,21 @@ namespace SWH.View
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>True if the parameter fits the search key, false otherwise</returns>
-        private bool ApplySearch(object obj)
+        private bool ApplySearch(User user)
         {
-            //Safe cast object to User
-            User user = obj as User;
+            string key = SearchTextBox.Text;
 
-            if (user == null)
-            {
-                return false;
-            }
-            else
-            {
-                string key = SearchTextBox.Text;
+            //Compare search key to all fields' string representation
+            if (user.ID.ToString().Contains(key)) return true;
+            if (user.UserName.Contains(key)) return true;
+            if (user.Password.Contains(key)) return true;
+            if (user.FirstName.Contains(key)) return true;
+            if (user.LastName.Contains(key)) return true;
+            if (user.PlaceOfBirth.Contains(key)) return true;
+            if (user.DateOfBirth.ToString().Contains(key)) return true;
+            if (user.HomeTown.ToString().Contains(key)) return true;
 
-                //Compare search key to all fields' string representation
-                if (user.ID.ToString().Contains(key)) return true;
-                if (user.UserName.Contains(key)) return true;
-                if (user.Password.Contains(key)) return true;
-                if (user.FirstName.Contains(key)) return true;
-                if (user.LastName.Contains(key)) return true;
-                if (user.PlaceOfBirth.Contains(key)) return true;
-                if (user.DateOfBirth.ToString().Contains(key)) return true;
-                if (user.HomeTown.ToString().Contains(key)) return true;
-
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
@@ -95,16 +86,13 @@ namespace SWH.View
         /// <param name="e"></param>
         private void OnEditButton(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DetailsWindow details = new DetailsWindow();
-                details.User = UsersListView.Items[UsersListView.SelectedIndex] as User;
-                details.ShowDialog();
-            }
-            catch (ArgumentOutOfRangeException exception)
-            {
-                //Index can be out of range when nothing is selected   
-            }
+            User user = UsersListView.SelectedItem as User;
+            if (user == null)
+                return;
+
+            DetailsWindow details = new DetailsWindow();
+            details.User = user;
+            details.ShowDialog();
         }
     }
 }
