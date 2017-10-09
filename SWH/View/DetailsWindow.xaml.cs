@@ -49,6 +49,9 @@ namespace SWH.View
             User.HomeTown = HomwTownTextBox.Text;
             User.DateOfBirth = BirthDatePicker.SelectedDate.Value;
 
+            //Request Provider to save to Database
+            App.Current.UserProvider.SaveToDataBase();
+
             //Close window
             Close();
         }

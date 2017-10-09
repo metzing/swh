@@ -91,6 +91,30 @@ namespace SWH.BL
             }
             return result;
         }
+
+        /// <summary>
+        /// Saves the content of the memory into the database file
+        /// </summary>
+        public void SaveToDataBase()
+        {
+            List<string> lines = new List<string>();
+            foreach (var user in Users)
+            {
+                lines.Add(UserToCSV(user));
+            }
+
+            File.WriteAllLines("database.txt", lines.ToArray());
+        }
+
+        /// <summary>
+        /// Creates a CSV string representation of the User object passed
+        /// </summary>
+        /// <param name="user">Object to be serialized</param>
+        /// <returns>CSV string</returns>
+        private string UserToCSV(User user)
+        {
+            return $"{user.ID};{user.UserName};{user.Password};{user.LastName};{user.FirstName};{user.DateOfBirth};{user.PlaceOfBirth};{user.HomeTown}\n";
+        }
     }
 
     /// <summary>
@@ -102,6 +126,7 @@ namespace SWH.BL
         List<User> GetUsers();
         List<User> GetUsers(Predicate<User> predicate);
         void SaveToXML(string filename);
+        void SaveToDataBase();
     }
 
     /// <summary>
