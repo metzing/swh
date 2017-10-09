@@ -113,7 +113,7 @@ namespace SWH.BL
         /// <returns>CSV string</returns>
         private string UserToCSV(User user)
         {
-            return $"{user.ID};{user.UserName};{user.Password};{user.LastName};{user.FirstName};{user.DateOfBirth};{user.PlaceOfBirth};{user.HomeTown}\n";
+            return $"{user.ID};{user.UserName};{user.Password};{user.LastName};{user.FirstName};{user.DateOfBirth};{user.PlaceOfBirth};{user.HomeTown}";
         }
     }
 
